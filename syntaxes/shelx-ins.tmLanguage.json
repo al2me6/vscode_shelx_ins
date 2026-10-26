@@ -1,0 +1,198 @@
+{
+  "name": "shelx-ins",
+  "scopeName": "source.shelx-ins",
+  "fileTypes": ["ins", "res"],
+  "patterns": [
+    { "include": "#overlong" },
+    { "include": "#end" },
+    { "include": "#rem" },
+    { "include": "#titl" },
+    { "include": "#continuation" },
+    { "include": "#spaced" },
+    { "include": "#insn" }
+  ],
+  "repository": {
+    "overlong": {
+      "patterns": [
+        {
+          "match": "(?:^.{80})(.+)",
+          "captures": {
+            "1": { "name": "invalid.illegal" }
+          }
+        }
+      ]
+    },
+    "end": {
+      "patterns": [
+        {
+          "begin": "(?i)^END",
+          "end": "𰻞",
+          "beginCaptures": {
+            "0": { "name": "keyword.control" }
+          },
+          "patterns": [
+            {
+              "match": ".+",
+              "name": "comment.block"
+            }
+          ]
+        }
+      ]
+    },
+    "rem": {
+      "patterns": [
+        {
+          "match": "(?i)^(REM.*)$",
+          "name": "comment.line"
+        }
+      ]
+    },
+    "titl": {
+      "patterns": [
+        {
+          "match": "(?i)^(TITL)(.*)$",
+          "captures": {
+            "1": { "name": "keyword" },
+            "2": { "name": "string.unquoted" }
+          }
+        }
+      ]
+    },
+    "continuation": {
+      "patterns": [
+        {
+          "begin": "(=)(.*)",
+          "end": "^(?! )",
+          "beginCaptures": {
+            "1": { "name": "keyword.control" },
+            "2": { "name": "invalid.illegal" }
+          },
+          "patterns": [{ "include": "#args" }]
+        }
+      ]
+    },
+    "spaced": {
+      "patterns": [
+        {
+          "match": "^ .*",
+          "name": "comment.line"
+        }
+      ]
+    },
+    "insn": {
+      "patterns": [
+        {
+          "match": "(?i)^(AFIX) +(\\d+)([^=!]*)(!.*)?",
+          "captures": {
+            "1": { "name": "keyword" },
+            "2": { "name": "constant.language" },
+            "4": { "name": "comment.line" }
+          }
+        },
+        {
+          "match": "(?i)^(PART) +(\\-?)(\\d+)( +\\-?\\d+(?:\\.\\d+)?)?([^=!]*)(!.*)?",
+          "captures": {
+            "1": { "name": "keyword.control" },
+            "2": { "name": "constant.language" },
+            "3": { "name": "constant.numeric" },
+            "4": {
+              "patterns": [{ "include": "#fvar" }],
+              "name": "constant.numeric"
+            },
+            "6": { "name": "comment.line" }
+          }
+        },
+        {
+          "match": "(?i)^(RESI) +(\\d+)([^=!]*)(!.*)?",
+          "captures": {
+            "1": { "name": "keyword.control" },
+            "2": { "name": "constant.numeric" },
+            "3": { "name": "entity.name.type" },
+            "4": { "name": "comment.line" }
+          }
+        },
+        {
+          "match": "(?i)^(SYMM)([^=!]*)(!.*)?",
+          "captures": {
+            "1": { "name": "keyword" },
+            "3": { "name": "comment.line" }
+          }
+        },
+        {
+          "match": "(?i)^(ABIN|ACTA|ANIS|ANSC|ANSR|BASF|BIND|BLOC|BOND|BUMP|CELL|CGLS|CHIV|CONF|CONN|DAMP|DANG|DEFS|DELU|DFIX|DISP|EADP|EQIV|EXTI|EXYZ|FEND|FLAT|FMAP|FRAG|FREE|FVAR|GRID|HFIX|HKLF|HTAB|ISOR|LATT|LAUE|LIST|L\\.S\\.|MERG|MORE|MPLA|NCSY|NEUT|OMIT|PATT|PLAN|PRIG|RIGU|RTAB|SADI|SAME|SFAC|SHEL|SIMU|SIZE|SPEC|STIR|SUMP|SWAT|TEMP|TREF|TWIN|TWST|UNIT|WGHT|WIGL|WPDB|XNPD|ZERR)([^=!]*)(!.*)?",
+          "captures": {
+            "1": { "name": "keyword" },
+            "2": { "patterns": [{ "include": "#args" }] },
+            "3": { "name": "comment.line" }
+          }
+        },
+        {
+          "match": "(?i)^([A-Z][A-Z\\d]+)([^=!]+)(!.*)?",
+          "captures": {
+            "1": { "patterns": [{ "include": "#atom" }] },
+            "2": {
+              "patterns": [
+                {
+                  "match": "(?<=[A-Z\\d] +)(\\d+)( +\\-?\\d+(?:\\.\\d+)?)\\g<2>{2}(\\g<2>)(\\g<2>)",
+                  "captures": {
+                    "1": { "name": "entity.name.type" },
+                    "3": { "patterns": [{ "include": "#fvar" }] },
+                    "4": {
+                      "patterns": [
+                        {
+                          "match": "(\\-)(.+)",
+                          "captures": {
+                            "1": { "name": "constant.language" },
+                            "2": { "name": "constant.numeric" }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            "3": { "name": "comment.line" }
+          }
+        }
+      ]
+    },
+    "fvar": {
+      "patterns": [
+        {
+          "match": "(\\-?[1-9]\\d*)(\\d(?:\\.\\d+)?)",
+          "captures": {
+            "1": { "name": "constant.language" },
+            "2": { "name": "constant.numeric" }
+          }
+        }
+      ]
+    },
+    "args": {
+      "patterns": [
+        {
+          "match": "[><]",
+          "name": "keyword.control"
+        },
+        { "include": "#atom" },
+        {
+          "match": "(?<= )\\-?\\d+(?:\\.\\d+)?(?=\\s)",
+          "name": "variable.other"
+        }
+      ]
+    },
+    "atom": {
+      "patterns": [
+        {
+          "match": "(?i)(?<=(?:^| ))(\\$?)([A-Z]{1,2})(\\d+[A-Z]*)?(\\_\\$?[\\d\\*]*)?(?=(?:$| ))",
+          "captures": {
+            "1": { "name": "keyword" },
+            "2": { "name": "entity.name.type" },
+            "3": { "name": "entity.name.variable" },
+            "4": { "name": "variable.parameter" }
+          }
+        }
+      ]
+    }
+  }
+}

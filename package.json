@@ -1,0 +1,40 @@
+{
+  "name": "shelx-ins",
+  "displayName": "SHELX Instructions Syntax",
+  "description": "Syntax highlighter for SHELX .ins and .res files",
+  "version": "0.1.0",
+  "publisher": "al2me6",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/al2me6/vscode_shelx_ins"
+  },
+  "engines": {
+    "vscode": "^1.140.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "shelx-ins",
+        "aliases": [
+          "SHELX Ins",
+          "ins"
+        ],
+        "extensions": [
+          ".ins",
+          ".res"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "shelx-ins",
+        "scopeName": "source.shelx-ins",
+        "path": "./syntaxes/shelx-ins.tmLanguage.json"
+      }
+    ]
+  }
+}

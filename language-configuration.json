@@ -1,0 +1,11 @@
+{
+    "comments": {
+        "lineComment": "REM"
+    },
+    "folding": {
+        "markers": {
+            "start": "^AFIX\\s+[1-9]\\d*\\s*$",
+            "end": "^AFIX\\s+0\\s*$"
+        }
+    },
+}
