@@ -2,7 +2,7 @@
   "name": "shelx-ins",
   "displayName": "SHELX Instructions Syntax",
   "description": "Syntax highlighter for SHELX .ins and .res files",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "al2me6",
   "repository": {
     "type": "git",
@@ -15,6 +15,19 @@
     "Programming Languages"
   ],
   "contributes": {
+    "configurationDefaults": {
+      "[shelx-ins]": {
+        "editor.wordWrap": "off",
+        "editor.rulers": [
+          80
+        ],
+        "editor.quickSuggestions": {
+          "comments": "off",
+          "strings": "off",
+          "other": "off"
+        }
+      }
+    },
     "languages": [
       {
         "id": "shelx-ins",
