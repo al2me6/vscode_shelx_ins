@@ -174,11 +174,7 @@
           "match": "[><]",
           "name": "keyword.control"
         },
-        { "include": "#atom" },
-        {
-          "match": "(?<= )\\-?\\d+(?:\\.\\d+)?(?=\\s)",
-          "name": "variable.other"
-        }
+        { "include": "#atom" }
       ]
     },
     "atom": {
