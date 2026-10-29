@@ -8,4 +8,4 @@ Syntax highlighting for the [SHELX](https://shelx.uni-goettingen.de/) instructio
 
 ## License
 
-GNU GPLv3.
+&copy; 2026 Alvin Q. Meng. This plugin is licensed under the GNU GPL, version 3.
