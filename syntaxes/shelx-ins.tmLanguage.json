@@ -119,13 +119,13 @@
           }
         },
         {
-          "match": "(?i)^([A-Z][A-Z\\d]+)([^=!]+)(!.*)?",
+          "match": "(?i)^([A-Z][^ ]+) +([^=!]+)(!.*)?",
           "captures": {
             "1": { "patterns": [{ "include": "#atom" }] },
             "2": {
               "patterns": [
                 {
-                  "match": "(?i)(?<=[A-Z][A-Z\\d]+ +)(\\d+)( +\\-?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\g<2>{2}(\\g<2>)(\\g<2>)",
+                  "match": "(?i)(?<=[A-Z][^ ]+ +)(\\d+)( +\\-?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\g<2>{2}(\\g<2>)(\\g<2>)",
                   "captures": {
                     "1": { "name": "entity.name.type" },
                     "3": { "patterns": [{ "include": "#fvar" }] },
@@ -152,7 +152,7 @@
     "fvar": {
       "patterns": [
         {
-          "match": "(?<=\\b)(\\-?[1-9]\\d{0,1})(\\d(?:\\.\\d*)?)(?=\\b)",
+          "match": "(?<=^| )(\\-?[1-9]\\d{0,1})(\\d(?:\\.\\d*)?)(?=$| )",
           "captures": {
             "1": { "name": "constant.language" },
             "2": { "name": "constant.numeric" }
@@ -163,7 +163,7 @@
     "args": {
       "patterns": [
         {
-          "match": "[><]",
+          "match": "<|>",
           "name": "keyword.control"
         },
         { "include": "#atom" }
@@ -172,9 +172,9 @@
     "atom": {
       "patterns": [
         {
-          "match": "(?i)(?<=\\b)(\\$?)([A-Z]{1,2})(\\d+[A-Z]*)?(\\_\\$?[\\d\\*]*)?(?=\\b)",
+          "match": "(?i)(?<=^| )(\\$?)([A-Z]{1,2})([^ _]*)(\\_\\$?(?:\\d+|\\*)?)?(?=$| )",
           "captures": {
-            "1": { "name": "keyword" },
+            "1": { "name": "variable.parameter" },
             "2": { "name": "entity.name.type" },
             "3": { "name": "entity.name.variable" },
             "4": { "name": "variable.parameter" }
