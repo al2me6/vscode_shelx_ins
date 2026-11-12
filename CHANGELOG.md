@@ -1,6 +1,12 @@
 # Change Log
 
-## 0.1.3
+## 0.1.4 (20261111)
+
+- Fix: recognize the MOVE instruction
+- Fix: improve handling of residue class specifications
+- Fix: improve handling of atom names
+
+## 0.1.3 (20261028)
 
 - Disable indentation-related features in editor configuration defaults
 - Fix: recognize numbers without digits before the decimal point
